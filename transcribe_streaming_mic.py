@@ -133,6 +133,7 @@ def open_website(url, ts, is_end):
 
 
 def listen_print_loop(responses):
+    global temp
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -171,7 +172,7 @@ def listen_print_loop(responses):
         overwrite_chars = ' ' * (num_chars_printed - len(transcript))
 
         if (not result.is_final) and (len(transcript.split()) < 6) :
-            global temp
+            
             if(temp != transcript):
                 Thread(target=open_website, args=['http://localhost:3000/listen?', transcript.encode('utf-8'), 'false']).start()
                 print(transcript)
@@ -180,7 +181,7 @@ def listen_print_loop(responses):
             num_chars_printed = len(transcript)
 
         else:
-            global temp
+            
             if(temp != transcript):
                 Thread(target=open_website, args=['http://localhost:3000/listen?', transcript.encode('utf-8'), 'true']).start()
                 print(transcript)
